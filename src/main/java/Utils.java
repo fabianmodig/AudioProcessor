@@ -1,4 +1,6 @@
 
+import org.apache.commons.math.complex.Complex;
+
 import java.util.Arrays;
 public class Utils {
     public Utils() {
@@ -26,33 +28,33 @@ public class Utils {
      * @return   X Radix-2 length N signal spectrum
      */
 
-    public static ComplexNumber[] fft(ComplexNumber[] x) {
+    public static Complex[] fft(Complex[] x) {
         int N = x.length;
 
         if ( N == 1 ) {
-            return new ComplexNumber[] {x[0]};
+            return new Complex[] {x[0]};
         }
 
         if (N % 2 != 0) {
             throw new RuntimeException("Sample points N not radix-2");
         }
 
-        ComplexNumber[] xEven = new ComplexNumber[N / 2];
-        ComplexNumber[] xOdd = new ComplexNumber[N / 2];
+        Complex[] xEven = new Complex[N / 2];
+        Complex[] xOdd = new Complex[N / 2];
 
         for (int k = 0; k < N / 2; k++) {
             xEven[k] = x[2 * k];
             xOdd[k] = x[2 * k + 1];
         }
 
-        ComplexNumber[] Ek = fft(xEven);
-        ComplexNumber[] Ok = fft(xOdd);
-        ComplexNumber[] X = new ComplexNumber[N];
+        Complex[] Ek = fft(xEven);
+        Complex[] Ok = fft(xOdd);
+        Complex[] X = new Complex[N];
 
         for (int k = 0; k < N / 2; k++) {
-            ComplexNumber tf = ComplexNumber.exp(new ComplexNumber(0, -2 * Math.PI * k / N));
-            X[k] = ComplexNumber.add(Ek[k], ComplexNumber.multiply(tf, Ok[k]));
-            X[k + N / 2] = ComplexNumber.subtract(Ek[k], ComplexNumber.multiply(tf, Ok[k]));
+            Complex tf = new Complex(0, -2 * Math.PI * k / N).exp();
+            X[k] = Ek[k].add(tf.multiply(Ok[k]));
+            X[k + N / 2] = Ek[k].subtract(tf.multiply(Ok[k]));
         }
 
         return X;
@@ -64,9 +66,9 @@ public class Utils {
      * @return   x Radix-2 length N signal array
      */
 
-    public static ComplexNumber[] ifft(ComplexNumber[] X) {
+    public static Complex[] ifft(Complex[] X) {
         int N = X.length;
-        ComplexNumber[] x = new ComplexNumber[N];
+        Complex[] x = new Complex[N];
 
         for (int k = 0; k < N; k ++) {
             x[k]  = X[k].conjugate();
@@ -76,7 +78,7 @@ public class Utils {
 
         for (int k = 0; k < N; k ++) {
             x[k] = x[k].conjugate();
-            x[k] = x[k].times(1.0 / N);
+            x[k] = x[k].multiply(1.0 / N);
         }
 
         return x;

@@ -12,3 +12,13 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.11'
     compile group: 'org.apache.commons', name: 'commons-math', version: 2.2
 }
+
+task fatJar(type: Jar) {
+    baseName = project.name + '-all'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+    manifest {
+        attributes 'Implementation-Title': 'AudioProcessor', 'Implementation-Version': version
+        attributes 'Main-Class': 'DenoisingExample'
+    }
+}

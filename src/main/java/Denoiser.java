@@ -1,3 +1,6 @@
+import org.apache.commons.math.complex.Complex;
+import org.apache.commons.math.transform.FastFourierTransformer;
+
 import java.util.Arrays;
 
 public class Denoiser implements AudioProcessor {
@@ -13,9 +16,11 @@ public class Denoiser implements AudioProcessor {
     private int noiseLength;
     private int noiseThreshold;
     private int frameReset;
+    private FastFourierTransformer transformer;
 
 
     public Denoiser(int fs) {
+        transformer = new FastFourierTransformer();
         windowLength = 256;
         overlapRatio = 0.5;
         this.fs = fs;
@@ -29,6 +34,7 @@ public class Denoiser implements AudioProcessor {
     }
 
     public Denoiser(int fs, double noSpeechDuration) {
+        transformer = new FastFourierTransformer();
         windowLength = 256;
         overlapRatio = 0.5;
         this.fs = fs;
@@ -42,6 +48,7 @@ public class Denoiser implements AudioProcessor {
     }
 
     public Denoiser(int fs, double noSpeechDuration, int noiseLength, int noiseThreshold, int frameReset) {
+        transformer = new FastFourierTransformer();
         windowLength = 256;
         overlapRatio = 0.5;
         this.fs = fs;
@@ -82,25 +89,26 @@ public class Denoiser implements AudioProcessor {
     public double[] process(double[] input) {
         double[][] sampledSignalWindowed = segmentSignal(input, windowLength, overlapRatio);
         int frames = sampledSignalWindowed[0].length;
-        ComplexNumber[][] sampledSignalWindowedComplex = new ComplexNumber[frames][windowLength];
-        ComplexNumber[][] signalFFT = new ComplexNumber[frames][windowLength];
+        Complex[][] sampledSignalWindowedComplex = new Complex[frames][windowLength];
+        Complex[][] signalFFT = new Complex[frames][windowLength];
         double[][] signalFFTMagnitude = new double[frames][windowLength];
         double[][] signalFFTPhase = new double[frames][windowLength];
 
         for (int i = 0; i < frames; i++) {
             for (int k = 0; k < windowLength; k++) {
-                sampledSignalWindowedComplex[i][k] = new ComplexNumber(sampledSignalWindowed[k][i]); //convert samples to Complex form for fft and perform transpose
+                sampledSignalWindowedComplex[i][k] = new Complex(sampledSignalWindowed[k][i], 0); //convert samples to Complex form for fft and perform transpose
             }
         }
-
+/*
         for (int i = 0; i < frames; i++) {
-            signalFFT[i] = Utils.fft(sampledSignalWindowedComplex[i]);
+            signalFFT[i] = transformer.transform(sampledSignalWindowedComplex[i]);
         }
-
+*/
         for (int i = 0; i < frames; i++) {
+            Complex[] signalFFTline = transformer.transform(sampledSignalWindowedComplex[i]);
             for (int k = 0; k < windowLength; k++) {
-                signalFFTMagnitude[i][k] =  signalFFT[i][k].mod();
-                signalFFTPhase[i][k] =  signalFFT[i][k].getArg();
+                signalFFTMagnitude[i][k] =  signalFFTline[k].abs();
+                signalFFTPhase[i][k] =  signalFFTline[k].getArgument();
             }
         }
 
@@ -161,25 +169,25 @@ public class Denoiser implements AudioProcessor {
                 enhancedSpectrum[i][k] = gain[k] * signalFFTMagnitude[i][k];
             }
         }
-        ComplexNumber[][] enhancedSpectrumComplex = new ComplexNumber[frames][windowLength];
+        Complex[][] enhancedSpectrumComplex = new Complex[frames][windowLength];
 
         for (int i = 0; i < frames; i++) {
             for (int k = 0; k < windowLength; k++) {
-                enhancedSpectrumComplex[i][k] = ComplexNumber.exp(new ComplexNumber(0, signalFFTPhase[i][k]));
-                enhancedSpectrumComplex[i][k] = enhancedSpectrumComplex[i][k].times(enhancedSpectrum[i][k]);
+                enhancedSpectrumComplex[i][k] = new Complex(0, signalFFTPhase[i][k]).exp();
+                enhancedSpectrumComplex[i][k] = enhancedSpectrumComplex[i][k].multiply(enhancedSpectrum[i][k]);
             }
         }
 
-        ComplexNumber[][] enhancedSegments = new ComplexNumber[frames][windowLength];
+        Complex[][] enhancedSegments = new Complex[frames][windowLength];
         double[][] enhancedSegmentsReal = new double[windowLength][frames];
 
         for (int i = 0; i < frames; i++) {
-            enhancedSegments[i] = Utils.ifft(enhancedSpectrumComplex[i]);
+            enhancedSegments[i] = transformer.inversetransform((enhancedSpectrumComplex[i]));
         }
 
         for (int i = 0; i < frames; i++) {
             for (int k = 0; k < windowLength; k++) {
-                enhancedSegmentsReal[k][i] =  enhancedSegments[i][k].getRe(); //convert samples to real from and perform tranpose
+                enhancedSegmentsReal[k][i] =  enhancedSegments[i][k].getReal(); //convert samples to real from and perform tranpose
             }
         }
 
@@ -191,9 +199,9 @@ public class Denoiser implements AudioProcessor {
      * Voice activity detector that predicts wheter the current frame contains speech or not
      * @param frame  Current frame
      * @param noise   Current noise estimate
-     * @param noiseCounter  Number of previous noise frames
-     * @param noiseThreshold User set threshold
-     * @param frameReset Number of frames after which speech flag is reset
+     * noiseCounter  Number of previous noise frames
+     * noiseThreshold User set threshold
+     * frameReset Number of frames after which speech flag is reset
      */
     private void vad(double[] frame, double[] noise) {
         double[] spectralDifference = new double[windowLength];
