@@ -1,17 +1,17 @@
-src.AudioProcessor
+AudioProcessor
 ==============
 
 Java library for speech enhancement
 
 Usage
 ==============
-java src.DenoisingExample [wavfile]
+java DenoisingExample [wavfile]
 
-src.Denoiser denoiser = new src.Denoiser(parameters...);<br/>
+Denoiser denoiser = new Denoiser(parameters...);<br/>
 float[][] input = ...;<br/>
 float[][] output = denoiser.process(input);<br/>
 
-src.Denoiser denoiser = new src.Denoiser(parameters...);<br/>
+Denoiser denoiser = new Denoiser(parameters...);<br/>
 float[] input = ...;<br/>
 float[] output = denoiser.process(input);<br/>
 
