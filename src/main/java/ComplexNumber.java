@@ -1,5 +1,5 @@
 /**
- * <code>ComplexNumber</code> is a class which implements complex numbers in Java.
+ * <code>src.ComplexNumber</code> is a class which implements complex numbers in Java.
  * It includes basic operations that can be performed on complex numbers such as,
  * addition, subtraction, multiplication, conjugate, modulus and squaring.
  * The data type for Complex Numbers.
@@ -27,15 +27,15 @@ public class ComplexNumber {
     */
     public static final int RCIS = 1;
     /**
-    * The real, Re(z), part of the <code>ComplexNumber</code>.
+    * The real, Re(z), part of the <code>src.ComplexNumber</code>.
     */
     private double real;
     /**
-    * The imaginary, Im(z), part of the <code>ComplexNumber</code>.
+    * The imaginary, Im(z), part of the <code>src.ComplexNumber</code>.
     */
     private double imaginary;
     /**
-    * Constructs a new <code>ComplexNumber</code> object with both real and imaginary parts 0 (z = 0 + 0i).
+    * Constructs a new <code>src.ComplexNumber</code> object with both real and imaginary parts 0 (z = 0 + 0i).
     */
     public ComplexNumber() {
         real = 0.0;
@@ -43,7 +43,7 @@ public class ComplexNumber {
     }
 
     /**
-    * Constructs a new <code>ComplexNumber</code> object.
+    * Constructs a new <code>src.ComplexNumber</code> object.
     * @param real the real part, Re(z), of the complex number
     * @param imaginary the imaginary part, Im(z), of the complex number
     */
@@ -59,7 +59,7 @@ public class ComplexNumber {
     }
 
     /**
-    * Adds another <code>ComplexNumber</code> to the current complex number.
+    * Adds another <code>src.ComplexNumber</code> to the current complex number.
     * @param z the complex number to be added to the current complex number
     */
 
@@ -68,7 +68,7 @@ public class ComplexNumber {
     }
 
     /**
-    * Subtracts another <code>ComplexNumber</code> from the current complex number.
+    * Subtracts another <code>src.ComplexNumber</code> from the current complex number.
     * @param z the complex number to be subtracted from the current complex number
     */
 
@@ -77,7 +77,7 @@ public class ComplexNumber {
     }
 
     /**
-    * Multiplies another <code>ComplexNumber</code> to the current complex number.
+    * Multiplies another <code>src.ComplexNumber</code> to the current complex number.
     * @param z the complex number to be multiplied to the current complex number
     */
 
@@ -85,7 +85,7 @@ public class ComplexNumber {
         set(multiply(this, z));
     }
     /**
-    * Divides the current <code>ComplexNumber</code> by another <code>ComplexNumber</code>.
+    * Divides the current <code>src.ComplexNumber</code> by another <code>src.ComplexNumber</code>.
     * @param z the divisor
     */
     public void divide(ComplexNumber z) {
@@ -100,29 +100,29 @@ public class ComplexNumber {
         this.imaginary = z.imaginary;
     }
     /**
-    * Adds two <code>ComplexNumber</code>.
-    * @param z1 the first <code>ComplexNumber</code>.
-    * @param z2 the second <code>ComplexNumber</code>.
-    * @return the resultant <code>ComplexNumber</code> (z1 + z2).
+    * Adds two <code>src.ComplexNumber</code>.
+    * @param z1 the first <code>src.ComplexNumber</code>.
+    * @param z2 the second <code>src.ComplexNumber</code>.
+    * @return the resultant <code>src.ComplexNumber</code> (z1 + z2).
     */
     public static ComplexNumber add(ComplexNumber z1, ComplexNumber z2) {
         return new ComplexNumber(z1.real + z2.real, z1.imaginary + z2.imaginary);
     }
 
     /**
-    * Subtracts one <code>ComplexNumber</code> from another.
-    * @param z1 the first <code>ComplexNumber</code>.
-    * @param z2 the second <code>ComplexNumber</code>.
-    * @return the resultant <code>ComplexNumber</code> (z1 - z2).
+    * Subtracts one <code>src.ComplexNumber</code> from another.
+    * @param z1 the first <code>src.ComplexNumber</code>.
+    * @param z2 the second <code>src.ComplexNumber</code>.
+    * @return the resultant <code>src.ComplexNumber</code> (z1 - z2).
     */
     public static ComplexNumber subtract(ComplexNumber z1, ComplexNumber z2) {
         return new ComplexNumber(z1.real - z2.real, z1.imaginary - z2.imaginary);
     }
     /**
-    * Multiplies one <code>ComplexNumber</code> to another.
-    * @param z1 the first <code>ComplexNumber</code>.
-    * @param z2 the second <code>ComplexNumber</code>.
-    * @return the resultant <code>ComplexNumber</code> (z1 * z2).
+    * Multiplies one <code>src.ComplexNumber</code> to another.
+    * @param z1 the first <code>src.ComplexNumber</code>.
+    * @param z2 the second <code>src.ComplexNumber</code>.
+    * @return the resultant <code>src.ComplexNumber</code> (z1 * z2).
     */
     public static ComplexNumber multiply(ComplexNumber z1, ComplexNumber z2) {
         double _real = z1.real * z2.real - z1.imaginary * z2.imaginary;
@@ -134,10 +134,10 @@ public class ComplexNumber {
         return new ComplexNumber(alpha*this.real,alpha*this.imaginary);
     }
     /**
-    * Divides one <code>ComplexNumber</code> by another.
-    * @param z1 the first <code>ComplexNumber</code>.
-    * @param z2 the second <code>ComplexNumber</code>.
-    * @return the resultant <code>ComplexNumber</code> (z1 / z2).
+    * Divides one <code>src.ComplexNumber</code> by another.
+    * @param z1 the first <code>src.ComplexNumber</code>.
+    * @param z2 the second <code>src.ComplexNumber</code>.
+    * @return the resultant <code>src.ComplexNumber</code> (z1 / z2).
     */
     public static ComplexNumber divide(ComplexNumber z1, ComplexNumber z2) {
         ComplexNumber output = multiply(z1, z2.conjugate());
@@ -147,7 +147,7 @@ public class ComplexNumber {
 
     /**
     * The complex conjugate of the current complex number.
-    * @return a <code>ComplexNumber</code> object which is the conjugate of the current complex number
+    * @return a <code>src.ComplexNumber</code> object which is the conjugate of the current complex number
     */
 
     public ComplexNumber conjugate() {
@@ -165,7 +165,7 @@ public class ComplexNumber {
 
     /**
     * The square of the current complex number.
-    * @return a <code>ComplexNumber</code> which is the square of the current complex number.
+    * @return a <code>src.ComplexNumber</code> which is the square of the current complex number.
     */
 
     public ComplexNumber square() {
@@ -187,9 +187,9 @@ public class ComplexNumber {
         return re + im;
     }
     /**
-    * Calculates the exponential of the <code>ComplexNumber</code>
+    * Calculates the exponential of the <code>src.ComplexNumber</code>
     * @param z The input complex number
-    * @return a <code>ComplexNumber</code> which is e^(input z)
+    * @return a <code>src.ComplexNumber</code> which is e^(input z)
     */
     public static ComplexNumber exp(ComplexNumber z) {
         double a = z.real;
@@ -200,10 +200,10 @@ public class ComplexNumber {
         return new ComplexNumber(a, b);
     }
     /**
-    * Calculates the <code>ComplexNumber</code> to the passed integer power.
+    * Calculates the <code>src.ComplexNumber</code> to the passed integer power.
     * @param z The input complex number
     * @param power The power.
-    * @return a <code>ComplexNumber</code> which is (z)^power
+    * @return a <code>src.ComplexNumber</code> which is (z)^power
     */
     public static ComplexNumber pow(ComplexNumber z, int power) {
         ComplexNumber output = new ComplexNumber(z.getRe(), z.getIm());
@@ -215,9 +215,9 @@ public class ComplexNumber {
         return output;
     }
     /**
-    * Calculates the sine of the <code>ComplexNumber</code>
+    * Calculates the sine of the <code>src.ComplexNumber</code>
     * @param z the input complex number
-    * @return a <code>ComplexNumber</code> which is the sine of z.
+    * @return a <code>src.ComplexNumber</code> which is the sine of z.
     */
     public static ComplexNumber sin(ComplexNumber z) {
         double x = Math.exp(z.imaginary);
@@ -227,9 +227,9 @@ public class ComplexNumber {
         return new ComplexNumber(r, i);
     }
     /**
-    * Calculates the cosine of the <code>ComplexNumber</code>
+    * Calculates the cosine of the <code>src.ComplexNumber</code>
     * @param z the input complex number
-    * @return a <code>ComplexNumber</code> which is the cosine of z.
+    * @return a <code>src.ComplexNumber</code> which is the cosine of z.
     */
     public static ComplexNumber cos(ComplexNumber z) {
         double x = Math.exp(z.imaginary);
@@ -239,46 +239,46 @@ public class ComplexNumber {
         return new ComplexNumber(r, i);
     }
     /**
-    * Calculates the tangent of the <code>ComplexNumber</code>
+    * Calculates the tangent of the <code>src.ComplexNumber</code>
     * @param z the input complex number
-    * @return a <code>ComplexNumber</code> which is the tangent of z.
+    * @return a <code>src.ComplexNumber</code> which is the tangent of z.
     */
     public static ComplexNumber tan(ComplexNumber z) {
         return divide(sin(z), cos(z));
     }
     /**
-    * Calculates the co-tangent of the <code>ComplexNumber</code>
+    * Calculates the co-tangent of the <code>src.ComplexNumber</code>
     * @param z the input complex number
-    * @return a <code>ComplexNumber</code> which is the co-tangent of z.
+    * @return a <code>src.ComplexNumber</code> which is the co-tangent of z.
     */
     public static ComplexNumber cot(ComplexNumber z) {
         return divide(new ComplexNumber(1, 0), tan(z));
     }
     /**
-    * Calculates the secant of the <code>ComplexNumber</code>
+    * Calculates the secant of the <code>src.ComplexNumber</code>
     * @param z the input complex number
-    * @return a <code>ComplexNumber</code> which is the secant of z.
+    * @return a <code>src.ComplexNumber</code> which is the secant of z.
     */
     public static ComplexNumber sec(ComplexNumber z) {
         return divide(new ComplexNumber(1, 0), cos(z));
     }
     /**
-    * Calculates the co-secant of the <code>ComplexNumber</code>
+    * Calculates the co-secant of the <code>src.ComplexNumber</code>
     * @param z the input complex number
-    * @return a <code>ComplexNumber</code> which is the co-secant of z.
+    * @return a <code>src.ComplexNumber</code> which is the co-secant of z.
     */
     public static ComplexNumber cosec(ComplexNumber z) {
         return divide(new ComplexNumber(1, 0), sin(z));
     }
     /**
-    * The real part of <code>ComplexNumber</code>
+    * The real part of <code>src.ComplexNumber</code>
     * @return the real part of the complex number
     */
     public double getRe() {
         return this.real;
     }
     /**
-    * The imaginary part of <code>ComplexNumber</code>
+    * The imaginary part of <code>src.ComplexNumber</code>
     * @return the imaginary part of the complex number
     */
     public double getIm() {
@@ -292,9 +292,9 @@ public class ComplexNumber {
         return Math.atan2(imaginary, real);
     }
     /**
-    * Parses the <code>String</code> as a <code>ComplexNumber</code> of type x+yi.
+    * Parses the <code>String</code> as a <code>src.ComplexNumber</code> of type x+yi.
     * @param s the input complex number as string
-    * @return a <code>ComplexNumber</code> which is represented by the string.
+    * @return a <code>src.ComplexNumber</code> which is represented by the string.
     */
     public static ComplexNumber parseComplex(String s) {
         s = s.replaceAll(" ", "");
@@ -328,7 +328,7 @@ public class ComplexNumber {
         return parsed;
     }
     /**
-    * Checks if the passed <code>ComplexNumber</code> is equal to the current.
+    * Checks if the passed <code>src.ComplexNumber</code> is equal to the current.
     * @param z the complex number to be checked
     * @return true if they are equal, false otherwise
     */
@@ -348,7 +348,7 @@ public class ComplexNumber {
     }
     /**
     * Formats the Complex number as x+yi or r.cis(theta)
-    * @param format_id the format ID <code>ComplexNumber.XY</code> or <code>ComplexNumber.RCIS</code>.
+    * @param format_id the format ID <code>src.ComplexNumber.XY</code> or <code>src.ComplexNumber.RCIS</code>.
     * @return a string representation of the complex number
     * @throws IllegalArgumentException if the format_id does not match.
     */

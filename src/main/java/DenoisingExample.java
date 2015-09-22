@@ -1,5 +1,6 @@
+
 import java.io.*;
-import java.util.Arrays;
+
 public class DenoisingExample {
     public static void main(String[] args) {
         try {

@@ -27,7 +27,7 @@ public class Bessel {
     }
 
     /**
-    * Modified Bessel function of first kind, order zero.
+    * Modified src.Bessel function of first kind, order zero.
     * Based on the NETLIB Fortran function besi0 written by W. Fullerton.
     */
 
@@ -40,7 +40,7 @@ public class Bessel {
     }
 
     /**
-    * Exponential scaled modified Bessel function of first kind, order zero.
+    * Exponential scaled modified src.Bessel function of first kind, order zero.
     * Based on the NETLIB Fortran function besi0e written by W. Fullerton.
     */
 
@@ -56,7 +56,7 @@ public class Bessel {
     }
 
     /**
-    * Modified Bessel function of first kind, order one.
+    * Modified src.Bessel function of first kind, order one.
     * Based on the NETLIB Fortran function besi0 written by W. Fullerton.
     */
 
@@ -71,7 +71,7 @@ public class Bessel {
     }
 
     /**
-    * Exponential scaled modified Bessel function of first kind, order one.
+    * Exponential scaled modified src.Bessel function of first kind, order one.
     * Based on the NETLIB Fortran function besi1e written by W. Fullerton.
     */
    

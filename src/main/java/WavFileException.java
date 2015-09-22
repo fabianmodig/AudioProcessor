@@ -1,3 +1,4 @@
+
 public class WavFileException extends Exception
 {
 	public WavFileException()
